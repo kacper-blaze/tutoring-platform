@@ -1,0 +1,661 @@
+/* ==========================================================================
+   Design tokens
+   Koncepcja: zeszyt szkolny / tablica, nie generyczny zestaw kart SaaS.
+   Czerwona linia marginesu jak u nauczyciela, akcent "kredowy" teal dla
+   dostępności/sukcesu, serif na nagłówki (klimat podręcznika).
+   ========================================================================== */
+:root {
+  --color-paper: #faf8f2;
+  --color-surface: #ffffff;
+  --color-ink: #20242b;
+  --color-ink-soft: #565c6b;
+  --color-ink-faint: #8b8f99;
+  --color-rule: #ded5c0;
+  --color-rule-strong: #c9bfa5;
+  --color-red: #bd4a3e;
+  --color-red-dark: #9c3a30;
+  --color-teal: #2f6f62;
+  --color-teal-soft: #e6efec;
+  --color-amber: #c6872e;
+  --color-amber-soft: #f5ead3;
+
+  --font-display: "Source Serif 4", Georgia, serif;
+  --font-body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --space-1: 0.4rem;
+  --space-2: 0.8rem;
+  --space-3: 1.4rem;
+  --space-4: 2.2rem;
+  --space-5: 3.4rem;
+
+  --radius: 3px;
+  --max-width: 1080px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 var(--space-2);
+  color: var(--color-ink);
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+h2 {
+  font-size: 1.6rem;
+}
+h3 {
+  font-size: 1.15rem;
+}
+
+p {
+  margin: 0 0 var(--space-2);
+  color: var(--color-ink-soft);
+  max-width: 68ch;
+}
+
+a {
+  color: var(--color-red);
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+.app-shell {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-3);
+}
+
+.page {
+  flex: 1;
+  padding: var(--space-4) 0 var(--space-5);
+}
+
+.page-loading {
+  padding: var(--space-5);
+  text-align: center;
+  color: var(--color-ink-faint);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   Navbar
+   ========================================================================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3);
+  border-bottom: 2px solid var(--color-ink);
+  background: var(--color-surface);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--color-ink);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.brand-mark {
+  color: var(--color-red);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.nav-links a {
+  color: var(--color-ink-soft);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.nav-links a:hover {
+  color: var(--color-ink);
+}
+
+.cta-link {
+  color: var(--color-red) !important;
+  font-weight: 600;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: var(--color-ink-soft);
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.link-button:hover {
+  color: var(--color-red);
+}
+
+/* ==========================================================================
+   Hero / margin rule — motyw marginesu zeszytu
+   ========================================================================== */
+.hero {
+  position: relative;
+  padding: var(--space-4) 0 var(--space-4) var(--space-4);
+  border-left: 3px solid var(--color-red);
+  margin-bottom: var(--space-4);
+}
+
+.hero-eyebrow {
+  font-family: var(--font-body);
+  color: var(--color-red);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: var(--space-1);
+}
+
+.hero h1 {
+  margin-bottom: var(--space-2);
+}
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+.form {
+  max-width: 420px;
+}
+
+.form-wide {
+  max-width: 640px;
+}
+
+.field {
+  margin-bottom: var(--space-3);
+}
+
+.field label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--color-ink-soft);
+  margin-bottom: 0.35rem;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--color-rule-strong);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-ink);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--color-red);
+}
+
+.field-hint {
+  font-size: 0.8rem;
+  color: var(--color-ink-faint);
+  margin-top: 0.3rem;
+}
+
+.field-row {
+  display: flex;
+  gap: var(--space-2);
+}
+.field-row > .field {
+  flex: 1;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-ink-soft);
+}
+.checkbox-row input {
+  width: auto;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1.3rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--color-red);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-red-dark);
+}
+
+.btn-secondary {
+  background: transparent;
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--color-ink);
+  color: #fff;
+}
+
+.btn-teal {
+  background: var(--color-teal);
+  color: #fff;
+}
+.btn-teal:hover:not(:disabled) {
+  background: #24564c;
+}
+
+.btn-small {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Notices
+   ========================================================================== */
+.notice {
+  padding: var(--space-2) var(--space-3);
+  border-left: 3px solid var(--color-ink);
+  background: var(--color-surface);
+  margin-bottom: var(--space-3);
+  font-size: 0.92rem;
+}
+
+.notice-error {
+  border-color: var(--color-red);
+  background: #fbefed;
+  color: var(--color-red-dark);
+}
+
+.notice-success {
+  border-color: var(--color-teal);
+  background: var(--color-teal-soft);
+  color: var(--color-teal);
+}
+
+/* ==========================================================================
+   Catalog / offer list — rozdzielone liniami, nie boksami z cieniem
+   ========================================================================== */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: flex-end;
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.filters .field {
+  margin-bottom: 0;
+  min-width: 160px;
+}
+
+.offer-list {
+  border-top: 1px solid var(--color-rule);
+}
+
+.offer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-rule);
+  text-decoration: none;
+  color: inherit;
+}
+
+.offer-row:hover .offer-subject {
+  color: var(--color-red);
+}
+
+.offer-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.offer-subject {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.offer-tutor {
+  color: var(--color-ink-soft);
+  font-size: 0.9rem;
+}
+
+.offer-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  white-space: nowrap;
+}
+
+.offer-rating {
+  font-size: 0.85rem;
+  color: var(--color-ink-faint);
+}
+
+.offer-price {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.empty-state {
+  padding: var(--space-4) 0;
+  color: var(--color-ink-faint);
+  font-style: italic;
+  text-align: center;
+}
+
+/* ==========================================================================
+   Tutor profile
+   ========================================================================== */
+.tutor-header {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.avatar-placeholder {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-teal-soft);
+  color: var(--color-teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.badge-teal {
+  background: var(--color-teal-soft);
+  color: var(--color-teal);
+}
+.badge-amber {
+  background: var(--color-amber-soft);
+  color: var(--color-amber);
+}
+
+.section {
+  margin-bottom: var(--space-4);
+}
+
+.offer-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.offer-chip {
+  border: 1px solid var(--color-rule-strong);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.9rem;
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   Slot picker — siatka terminów jak w planie lekcji
+   ========================================================================== */
+.slot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-2);
+}
+
+.slot-btn {
+  border: 1px solid var(--color-rule-strong);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  padding: 0.6rem 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.88rem;
+  color: var(--color-ink);
+}
+
+.slot-btn:hover {
+  border-color: var(--color-teal);
+  background: var(--color-teal-soft);
+}
+
+.slot-btn.selected {
+  border-color: var(--color-teal);
+  background: var(--color-teal);
+  color: #fff;
+}
+
+.slot-date {
+  font-weight: 600;
+  display: block;
+}
+.slot-time {
+  color: var(--color-ink-faint);
+  font-size: 0.82rem;
+}
+.slot-btn.selected .slot-time {
+  color: #e6efec;
+}
+
+/* ==========================================================================
+   Review list
+   ========================================================================== */
+.review-item {
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.review-rating {
+  color: var(--color-amber);
+  font-weight: 600;
+  margin-right: var(--space-1);
+}
+
+.review-date {
+  color: var(--color-ink-faint);
+  font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   Table-like lists (bookings, offers dashboard)
+   ========================================================================== */
+.data-list {
+  border-top: 1px solid var(--color-rule);
+}
+
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.data-row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.data-row-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.status-tag {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  text-transform: none;
+}
+
+.status-PENDING_PAYMENT {
+  background: var(--color-amber-soft);
+  color: var(--color-amber);
+}
+.status-CONFIRMED {
+  background: var(--color-teal-soft);
+  color: var(--color-teal);
+}
+.status-COMPLETED {
+  background: #e7e4da;
+  color: var(--color-ink-soft);
+}
+.status-EXPIRED,
+.status-CANCELLED_BY_STUDENT,
+.status-CANCELLED_BY_TUTOR {
+  background: #f1ece2;
+  color: var(--color-ink-faint);
+}
+.status-REFUND_PENDING {
+  background: #fbefed;
+  color: var(--color-red);
+}
+
+/* ==========================================================================
+   Dashboard panels (korepetytor)
+   ========================================================================== */
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-4);
+}
+
+.panel {
+  padding-bottom: var(--space-3);
+}
+
+.availability-row {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
+.availability-row select,
+.availability-row input {
+  padding: 0.5rem;
+  border: 1px solid var(--color-rule-strong);
+  border-radius: var(--radius);
+  font-family: inherit;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer {
+  border-top: 1px solid var(--color-rule);
+  padding: var(--space-3);
+  text-align: center;
+  color: var(--color-ink-faint);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-start;
+  }
+  .offer-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .tutor-header {
+    flex-direction: column;
+  }
+}
